@@ -1,13 +1,41 @@
-import React from 'react';
-import {Text, View} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {Text, ScrollView} from 'react-native';
+import CardQuiz from '../../components/CardQuiz';
 
-// import { Container } from './styles';
+import Database from '../../database';
 
-const AnswerQuiz = () => {
+import {Container} from './styles';
+
+const AnswerQuiz = ({route, navigation}) => {
+  const [items, setItems] = useState([
+    {
+      id: '1',
+      item: 'teste',
+      navigation: '',
+    },
+  ]);
+
+  useEffect(() => {
+    Database.getItems().then((items) => setItems(items));
+  }, [route]);
+
   return (
-    <View>
+    <Container>
       <Text>Answer Quiz</Text>
-    </View>
+
+      <ScrollView>
+        {items.map((item) => {
+          return (
+            <CardQuiz
+              key={item.id}
+              id={item.id}
+              item={item.titulo}
+              navigation={navigation}
+            />
+          );
+        })}
+      </ScrollView>
+    </Container>
   );
 };
 

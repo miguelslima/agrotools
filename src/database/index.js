@@ -31,7 +31,7 @@ async function deleteItem(id) {
   return AsyncStorage.setItem('items', JSON.stringify(savedItems));
 }
 
-module.exports = {
+export default {
   saveItem,
   getItems,
   getItem,

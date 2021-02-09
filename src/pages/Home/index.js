@@ -1,29 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
 
-import GetLocation from 'react-native-get-location';
 import Card from '../../components/Card';
 import {useNavigation} from '@react-navigation/native';
 
-import {Container, Title, Subtitle} from './styles';
+import {Container, Title} from './styles';
 
 const Home = () => {
   const navigation = useNavigation();
-  // const [latitude, setLatitude] = useState(0);
-  // const [longitude, setLongitude] = useState(0);
-
-  // GetLocation.getCurrentPosition({
-  //   enableHighAccuracy: true,
-  //   timeout: 15000,
-  // })
-  //   .then((location) => {
-  //     console.log(location);
-  //     setLatitude(location.latitude);
-  //     setLongitude(location.longitude);
-  //   })
-  //   .catch((error) => {
-  //     const {code, message} = error;
-  //     console.warn(code, message);
-  //   });
 
   return (
     <Container>
