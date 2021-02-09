@@ -1,12 +1,4 @@
 {
-  "name": "agrotools",
-  "displayName": "agrotools",
-  "expo": {
-    "name": "agrotools",
-    "slug": "agrotools",
-    "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
-  }
+  "name": "quizagrotools",
+  "displayName": "quizagrotools"
 }
