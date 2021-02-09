@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Text, View} from 'react-native';
 import GetLocation from 'react-native-get-location';
 
-// import { Container } from './styles';
+import {Container, Title} from './styles';
 
 const Home = () => {
   const [latitude, setLatitude] = useState(0);
@@ -23,11 +23,11 @@ const Home = () => {
     });
 
   return (
-    <View>
-      <Text>Home</Text>
+    <Container>
+      <Title>Home</Title>
       <Text>Latitude: {latitude} </Text>
       <Text>Longitude: {longitude} </Text>
-    </View>
+    </Container>
   );
 };
 

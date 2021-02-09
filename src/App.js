@@ -4,6 +4,7 @@ import {StatusBar} from 'react-native';
 
 import {NavigationContainer} from '@react-navigation/native';
 import Routes from './routes';
+import Header from './components/Header';
 
 const App = () => {
   return (
@@ -11,9 +12,9 @@ const App = () => {
       <StatusBar
         barStyle="light-content"
         backgroundColor="#550073"
-        hidden
         translucent
       />
+      <Header />
       <Routes />
     </NavigationContainer>
   );
