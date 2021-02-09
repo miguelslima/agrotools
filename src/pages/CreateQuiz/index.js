@@ -57,7 +57,7 @@ const CreateQuiz = ({route, navigation}) => {
     })
     .catch((error) => {
       const {code, message} = error;
-      console.warn(code, message);
+      console.log(code, message);
     });
 
   return (
