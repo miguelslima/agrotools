@@ -4,11 +4,45 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import Home from '../pages/Home';
 import Quiz from '../pages/Quiz';
+import AnswerQuiz from '../pages/AnswerQuiz';
+import CreateQuiz from '../pages/CreateQuiz';
 
 import Feather from 'react-native-vector-icons/Feather';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
+
+function StackScreen() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="AnswerQuiz"
+        component={AnswerQuiz}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({color, size}) => {
+            return <Feather name="database" color={color} size={size} />;
+          },
+        }}
+      />
+      <Stack.Screen
+        name="CreateQuiz"
+        component={CreateQuiz}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({color, size}) => {
+            return <Feather name="database" color={color} size={size} />;
+          },
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
 
 function AppRoutes() {
   return (
@@ -25,7 +59,7 @@ function AppRoutes() {
       }}>
       <Tab.Screen
         name="Home"
-        component={Home}
+        component={StackScreen}
         options={{
           tabBarIcon: ({color, size}) => {
             return <Feather name="home" color={color} size={size} />;
@@ -37,7 +71,7 @@ function AppRoutes() {
         component={Quiz}
         options={{
           tabBarIcon: ({color, size}) => {
-            return <Feather name="search" color={color} size={size} />;
+            return <Feather name="list" color={color} size={size} />;
           },
         }}
       />

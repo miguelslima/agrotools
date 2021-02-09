@@ -2,12 +2,14 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   flex: 1;
-  align-items: center;
   background: #f2f2f2;
+  justify-content: center;
 `;
 
 export const Title = styled.Text`
-  margin-top: 20px;
-  font-size: 20px;
+  margin-bottom: 30px;
+  font-size: 36px;
   font-family: 'RobotoSlab-Medium';
+  color: #333;
+  text-align: center;
 `;
