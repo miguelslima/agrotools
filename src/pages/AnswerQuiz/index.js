@@ -35,6 +35,7 @@ const AnswerQuiz = ({route, navigation}) => {
   const [help, setHelp] = useState('');
 
   const [questionsTitles, setQuestionsTitles] = useState([]);
+  const [answerTitle, setAnswerTitle] = useState([]);
 
   function handleTitleChange(titulo) {
     setTitulo(titulo);
@@ -89,6 +90,7 @@ const AnswerQuiz = ({route, navigation}) => {
       area,
       help,
       questionsTitles,
+      answerTitle,
     };
     Database.saveItem(listItem, id).then((response) =>
       navigation.navigate('Quiz', listItem),
@@ -207,7 +209,7 @@ const AnswerQuiz = ({route, navigation}) => {
                 <QuestionText>{questionsTitle}</QuestionText>
 
                 <TextInput
-                  onChangeText={() => {}}
+                  onChangeText={setAnswerTitle}
                   placeholder="Resposta"
                   multiline
                   numberOfLines={3}

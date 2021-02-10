@@ -27,6 +27,7 @@ const ViewQuiz = ({route, navigation}) => {
   const [dateQuest, setDateQuest] = useState(null);
 
   const [questionsTitles, setQuestionsTitles] = useState([]);
+  const [answerTitle, setAnswerTitle] = useState([]);
 
   useEffect(() => {
     if (!route.params) return;
@@ -38,8 +39,9 @@ const ViewQuiz = ({route, navigation}) => {
     setLatitude(route.params.latitude);
     setLongitude(route.params.longitude);
     setQuestionsTitles(route.params.questionsTitles);
+    setAnswerTitle(route.params.answerTitle);
   }, [route]);
-  console.log(questionsTitles);
+  console.log(answerTitle);
 
   const [items, setItems] = useState([]);
 
