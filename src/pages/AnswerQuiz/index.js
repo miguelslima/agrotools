@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import {Text, ScrollView, View} from 'react-native';
 import GetLocation from 'react-native-get-location';
 import Icon from 'react-native-vector-icons/Feather';
@@ -12,6 +12,7 @@ import {
   SubtitleCenter,
   TextInput,
   QuestionText,
+  LocationContainer,
   LocationText,
   AnswerButton,
   AnswerButtonText,
@@ -25,6 +26,7 @@ const AnswerQuiz = ({route, navigation}) => {
   const [titulo, setTitulo] = useState(null);
   const [usuario, setUsuario] = useState(null);
   const [date, setDate] = useState(null);
+  const [dateNow, setDateNow] = useState(new Date());
   const [dateQuest, setDateQuest] = useState(null);
 
   function handleTitleChange(titulo) {
@@ -137,7 +139,7 @@ const AnswerQuiz = ({route, navigation}) => {
 
         <SubtitleCenter>Questionário</SubtitleCenter>
 
-        <QuestionText>O que está ocorrendo na sua área?</QuestionText>
+        <QuestionText>Qual o seu nome?</QuestionText>
 
         <TextInput
           onChangeText={handleDescriptionChange}
@@ -148,24 +150,62 @@ const AnswerQuiz = ({route, navigation}) => {
           value={descricao}
         />
 
-        <QuestionText>Data de resposta do questionário:</QuestionText>
+        <QuestionText>
+          Qual o seu telefone de contato? De preferencia whatsapp
+        </QuestionText>
 
         <TextInput
-          onChangeText={handleDateQuestChange}
-          placeholder="Resposta"
+          onChangeText={handleDescriptionChange}
+          placeholder="(11) 99999-9999"
+          multiline
+          numberOfLines={3}
           clearButtonMode="always"
-          value={dateQuest}
+          value={descricao}
+        />
+
+        <QuestionText>Em que área você reside(urbana ou rural)?</QuestionText>
+
+        <TextInput
+          onChangeText={handleDescriptionChange}
+          placeholder="Resposta"
+          multiline
+          numberOfLines={3}
+          clearButtonMode="always"
+          value={descricao}
+        />
+
+        <QuestionText>Como poderemos ajudar?</QuestionText>
+
+        <TextInput
+          onChangeText={handleDescriptionChange}
+          placeholder="Resposta"
+          multiline
+          numberOfLines={3}
+          clearButtonMode="always"
+          value={descricao}
+        />
+
+        <QuestionText>Data de resposta do questionário</QuestionText>
+
+        <TextInput
+          onChangeText={handleDateChange}
+          TextInput
+          editable={false}
+          selectTextOnFocus={false}
+          placeholder="Data"
+          clearButtonMode="always"
+          value={date}
         />
 
         <SubtitleCenter>Localização atual </SubtitleCenter>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        <LocationContainer>
           <LocationText onChangeText={handleLatChange} value={latitude}>
             Latitude: {latitude}
           </LocationText>
           <LocationText onChangeText={handleLongChange} value={longitude}>
             Longitude: {longitude}
           </LocationText>
-        </View>
+        </LocationContainer>
 
         <AnswerButton onPress={handleButtonPress}>
           <Icon name="save" size={24} color="gray" />

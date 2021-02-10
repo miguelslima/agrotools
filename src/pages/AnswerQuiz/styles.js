@@ -39,6 +39,11 @@ export const QuestionText = styled.Text`
   font-size: 20px;
 `;
 
+export const LocationContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
 export const LocationText = styled.Text`
   font-family: 'RobotoSlab-Regular';
   background-color: #777;

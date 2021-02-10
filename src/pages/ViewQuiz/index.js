@@ -1,9 +1,19 @@
 import React, {useState, useEffect} from 'react';
-import {Text, TextInput, ScrollView} from 'react-native';
+import {Text, View, ScrollView} from 'react-native';
 import GetLocation from 'react-native-get-location';
 import Database from '../../database';
 
-import {Container} from './styles';
+import {
+  Container,
+  Title,
+  Subtitle,
+  SubtitleCenter,
+  TextInput,
+  QuestionText,
+  LocationText,
+  AnswerButton,
+  AnswerButtonText,
+} from './styles';
 
 const ViewQuiz = ({route, navigation}) => {
   const id = route.params ? route.params.id : undefined;
@@ -97,9 +107,9 @@ const ViewQuiz = ({route, navigation}) => {
 
   return (
     <Container>
-      <Text>Respostas do questionário</Text>
+      <Title>Respostas do questionário</Title>
       <ScrollView>
-        <Text>Título:</Text>
+        <Subtitle>Título:</Subtitle>
         <TextInput
           onChangeText={handleTitleChange}
           TextInput
@@ -109,7 +119,7 @@ const ViewQuiz = ({route, navigation}) => {
           clearButtonMode="always"
           value={titulo}
         />
-        <Text>Usuário:</Text>
+        <Subtitle>Usuário:</Subtitle>
         <TextInput
           onChangeText={handleUserChange}
           TextInput
@@ -120,7 +130,7 @@ const ViewQuiz = ({route, navigation}) => {
           value={usuario}
         />
 
-        <Text>Data de criação:</Text>
+        <Subtitle>Data de criação:</Subtitle>
 
         <TextInput
           onChangeText={handleDateChange}
@@ -132,9 +142,9 @@ const ViewQuiz = ({route, navigation}) => {
           value={date}
         />
 
-        <Text>Questionário</Text>
+        <SubtitleCenter>Questionário</SubtitleCenter>
 
-        <Text>Como podemos ajudar?</Text>
+        <Subtitle>Como podemos ajudar?</Subtitle>
 
         <TextInput
           onChangeText={handleDescriptionChange}
@@ -148,7 +158,7 @@ const ViewQuiz = ({route, navigation}) => {
           selectTextOnFocus={false}
         />
 
-        <Text>Data de resposta do questionário:</Text>
+        <Subtitle>Data de resposta do questionário:</Subtitle>
 
         <TextInput
           onChangeText={handleDateQuestChange}
@@ -160,23 +170,25 @@ const ViewQuiz = ({route, navigation}) => {
           selectTextOnFocus={false}
         />
 
-        <Text>Localização atual: </Text>
-        <Text
-          onChangeText={handleLatChange}
-          value={latitude}
-          TextInput
-          editable={false}
-          selectTextOnFocus={false}>
-          Latitude: {latitude}
-        </Text>
-        <Text
-          onChangeText={handleLongChange}
-          value={longitude}
-          TextInput
-          editable={false}
-          selectTextOnFocus={false}>
-          Longitude: {longitude}
-        </Text>
+        <SubtitleCenter>Localização atual: </SubtitleCenter>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <LocationText
+            onChangeText={handleLatChange}
+            value={latitude}
+            TextInput
+            editable={false}
+            selectTextOnFocus={false}>
+            Latitude: {latitude}
+          </LocationText>
+          <LocationText
+            onChangeText={handleLongChange}
+            value={longitude}
+            TextInput
+            editable={false}
+            selectTextOnFocus={false}>
+            Longitude: {longitude}
+          </LocationText>
+        </View>
       </ScrollView>
     </Container>
   );
