@@ -29,6 +29,13 @@ const AnswerQuiz = ({route, navigation}) => {
   const [dateNow, setDateNow] = useState(new Date());
   const [dateQuest, setDateQuest] = useState(null);
 
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [area, setArea] = useState('');
+  const [help, setHelp] = useState('');
+
+  const [questionsTitles, setQuestionsTitles] = useState([]);
+
   function handleTitleChange(titulo) {
     setTitulo(titulo);
   }
@@ -60,6 +67,7 @@ const AnswerQuiz = ({route, navigation}) => {
     setDateQuest(route.params.dateQuest);
     setLatitude(route.params.latitude);
     setLongitude(route.params.longitude);
+    setQuestionsTitles(route.params.questionsTitles);
   }, [route]);
   const [items, setItems] = useState([]);
 
@@ -76,6 +84,11 @@ const AnswerQuiz = ({route, navigation}) => {
       dateQuest,
       latitude,
       longitude,
+      name,
+      phone,
+      area,
+      help,
+      questionsTitles,
     };
     Database.saveItem(listItem, id).then((response) =>
       navigation.navigate('Quiz', listItem),
@@ -142,12 +155,12 @@ const AnswerQuiz = ({route, navigation}) => {
         <QuestionText>Qual o seu nome?</QuestionText>
 
         <TextInput
-          onChangeText={handleDescriptionChange}
+          onChangeText={setName}
           placeholder="Resposta"
           multiline
           numberOfLines={3}
           clearButtonMode="always"
-          value={descricao}
+          value={name}
         />
 
         <QuestionText>
@@ -155,35 +168,56 @@ const AnswerQuiz = ({route, navigation}) => {
         </QuestionText>
 
         <TextInput
-          onChangeText={handleDescriptionChange}
+          onChangeText={setPhone}
           placeholder="(11) 99999-9999"
           multiline
           numberOfLines={3}
           clearButtonMode="always"
-          value={descricao}
+          value={phone}
         />
 
         <QuestionText>Em que área você reside(urbana ou rural)?</QuestionText>
 
         <TextInput
-          onChangeText={handleDescriptionChange}
+          onChangeText={setArea}
           placeholder="Resposta"
           multiline
           numberOfLines={3}
           clearButtonMode="always"
-          value={descricao}
+          value={area}
         />
 
         <QuestionText>Como poderemos ajudar?</QuestionText>
 
         <TextInput
-          onChangeText={handleDescriptionChange}
+          onChangeText={setHelp}
           placeholder="Resposta"
           multiline
           numberOfLines={3}
           clearButtonMode="always"
-          value={descricao}
+          value={help}
         />
+
+        {questionsTitles === undefined ? (
+          <View />
+        ) : (
+          <View>
+            {questionsTitles.map((questionsTitle, index) => (
+              <View key={index}>
+                <QuestionText>{questionsTitle}</QuestionText>
+
+                <TextInput
+                  onChangeText={() => {}}
+                  placeholder="Resposta"
+                  multiline
+                  numberOfLines={3}
+                  clearButtonMode="always"
+                  value={descricao}
+                />
+              </View>
+            ))}
+          </View>
+        )}
 
         <QuestionText>Data de resposta do questionário</QuestionText>
 

@@ -49,7 +49,7 @@ const CreateQuiz = ({route, navigation}) => {
       return;
     }
 
-    const listItem = {titulo, usuario, date};
+    const listItem = {titulo, usuario, date, questionsTitles};
     Database.saveItem(listItem, id).then((response) =>
       navigation.navigate('Home', listItem),
     );

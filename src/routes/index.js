@@ -57,7 +57,7 @@ function AppRoutes() {
           },
         }}
       />
-      <Stack.Screen
+      <Tab.Screen
         name="AnswerQuiz"
         component={AnswerQuiz}
         options={{
@@ -68,7 +68,7 @@ function AppRoutes() {
         }}
       />
 
-      <Stack.Screen
+      <Tab.Screen
         name="ViewQuiz"
         component={ViewQuiz}
         options={{

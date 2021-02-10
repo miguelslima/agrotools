@@ -26,27 +26,7 @@ const ViewQuiz = ({route, navigation}) => {
   const [date, setDate] = useState(null);
   const [dateQuest, setDateQuest] = useState(null);
 
-  function handleTitleChange(titulo) {
-    setTitulo(titulo);
-  }
-  function handleUserChange(usuario) {
-    setUsuario(usuario);
-  }
-  function handleDescriptionChange(descricao) {
-    setDescricao(descricao);
-  }
-  function handleDateChange(setDate) {
-    setDate(setDate);
-  }
-  function handleDateQuestChange(dateQuest) {
-    setDateQuest(dateQuest);
-  }
-  function handleLatChange(location) {
-    setLocationLat(location);
-  }
-  function handleLongChange(location1) {
-    setLocationLong(location1);
-  }
+  const [questionsTitles, setQuestionsTitles] = useState([]);
 
   useEffect(() => {
     if (!route.params) return;
@@ -57,31 +37,15 @@ const ViewQuiz = ({route, navigation}) => {
     setDateQuest(route.params.dateQuest);
     setLatitude(route.params.latitude);
     setLongitude(route.params.longitude);
+    setQuestionsTitles(route.params.questionsTitles);
   }, [route]);
+  console.log(questionsTitles);
 
   const [items, setItems] = useState([]);
 
   useEffect(() => {
     Database.getItems().then((items) => setItems(items));
   }, [route]);
-
-  async function handleButtonPress() {
-    const listItem = {
-      usuario,
-      titulo,
-      descricao,
-      dateAtualizacao,
-      dateQuest,
-      latitude,
-      longitude,
-    };
-    Database.saveItem(listItem, id).then((response) =>
-      navigation.navigate('Home', listItem),
-    );
-    navigation.reset({
-      routes: [{name: 'Home'}],
-    });
-  }
 
   useEffect(() => {
     GetLocation.getCurrentPosition({
@@ -98,20 +62,12 @@ const ViewQuiz = ({route, navigation}) => {
       });
   }, []);
 
-  // let text = 'Obtendo..';
-  // if (errorMsg) {
-  //   text = errorMsg;
-  // } else if (location) {
-  //   text = JSON.stringify(location, location1);
-  // }
-
   return (
     <Container>
       <Title>Respostas do questionário</Title>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Subtitle>Título:</Subtitle>
         <TextInput
-          onChangeText={handleTitleChange}
           TextInput
           editable={false}
           selectTextOnFocus={false}
@@ -121,7 +77,6 @@ const ViewQuiz = ({route, navigation}) => {
         />
         <Subtitle>Usuário:</Subtitle>
         <TextInput
-          onChangeText={handleUserChange}
           TextInput
           editable={false}
           selectTextOnFocus={false}
@@ -133,7 +88,6 @@ const ViewQuiz = ({route, navigation}) => {
         <Subtitle>Data de criação:</Subtitle>
 
         <TextInput
-          onChangeText={handleDateChange}
           TextInput
           editable={false}
           selectTextOnFocus={false}
@@ -147,7 +101,6 @@ const ViewQuiz = ({route, navigation}) => {
         <Subtitle>Como podemos ajudar?</Subtitle>
 
         <TextInput
-          onChangeText={handleDescriptionChange}
           placeholder="Resposta"
           multiline
           numberOfLines={3}
@@ -158,10 +111,31 @@ const ViewQuiz = ({route, navigation}) => {
           selectTextOnFocus={false}
         />
 
+        {questionsTitles === undefined ? (
+          <View />
+        ) : (
+          <View>
+            {questionsTitles.map((questionsTitle, index) => (
+              <View key={index}>
+                <QuestionText>{questionsTitle}</QuestionText>
+
+                <TextInput
+                  placeholder="Resposta"
+                  multiline
+                  numberOfLines={3}
+                  clearButtonMode="always"
+                  value={descricao}
+                  editable={false}
+                  selectTextOnFocus={false}
+                />
+              </View>
+            ))}
+          </View>
+        )}
+
         <Subtitle>Data de resposta do questionário:</Subtitle>
 
         <TextInput
-          onChangeText={handleDateQuestChange}
           placeholder="Resposta"
           clearButtonMode="always"
           value={dateQuest}
@@ -173,7 +147,6 @@ const ViewQuiz = ({route, navigation}) => {
         <SubtitleCenter>Localização atual: </SubtitleCenter>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <LocationText
-            onChangeText={handleLatChange}
             value={latitude}
             TextInput
             editable={false}
@@ -181,7 +154,6 @@ const ViewQuiz = ({route, navigation}) => {
             Latitude: {latitude}
           </LocationText>
           <LocationText
-            onChangeText={handleLongChange}
             value={longitude}
             TextInput
             editable={false}
