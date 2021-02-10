@@ -1,13 +1,51 @@
-import React from 'react';
-import {Text, View} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {Text, ScrollView, View, TouchableOpacity} from 'react-native';
+import CardQuiz from '../../components/CardQuiz';
 
-// import { Container } from './styles';
+import Database from '../../database';
+import {useNavigation} from '@react-navigation/native';
+import {
+  Container,
+  NoQuestionnaire,
+  NoQuestionnaireText,
+  ButtonCreate,
+  CreateQuiz,
+} from './styles';
 
-const Quiz = () => {
+const Quiz = ({route, navigation}) => {
+  const [items, setItems] = useState([]);
+  const {navigate} = useNavigation();
+
+  useEffect(() => {
+    Database.getItems().then((items) => setItems(items));
+  }, [route]);
+
   return (
-    <View>
-      <Text>Quiz</Text>
-    </View>
+    <Container>
+      {items.length === 0 ? (
+        <NoQuestionnaire>
+          <NoQuestionnaireText>
+            Sem questionários cadastrados
+          </NoQuestionnaireText>
+          <ButtonCreate onPress={() => navigate('CreateQuiz')}>
+            <CreateQuiz>Crie seu questionário</CreateQuiz>
+          </ButtonCreate>
+        </NoQuestionnaire>
+      ) : (
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {items.map((item) => {
+            return (
+              <CardQuiz
+                key={item.id}
+                id={item.id}
+                item={item.titulo}
+                navigation={navigation}
+              />
+            );
+          })}
+        </ScrollView>
+      )}
+    </Container>
   );
 };
 

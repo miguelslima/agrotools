@@ -39,7 +39,7 @@ const CardQuiz = ({id, item, navigation}) => {
           text: 'Sim',
           onPress: () => {
             Database.deleteItem(id).then((response) =>
-              navigation.navigate('AnswerQuiz', {id: id}),
+              navigation.navigate('Quiz', {id: id}),
             );
           },
         },
