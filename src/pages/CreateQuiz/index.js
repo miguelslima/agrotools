@@ -1,8 +1,10 @@
-import React, {useState, useEffect} from 'react';
-import {Text, View} from 'react-native';
+import React, {useState, useEffect, useCallback} from 'react';
+import {Alert, DatePickerAndroid, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import GetLocation from 'react-native-get-location';
 import Database from '../../database';
+
+import DateInput from '../../components/DateInput';
 
 import {
   Container,
@@ -16,15 +18,16 @@ const CreateQuiz = ({route, navigation}) => {
   const id = route.params ? route.params.id : undefined;
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
-  const [titulo, setTitulo] = useState(null);
-  const [usuario, setUsuario] = useState(null);
-  const [dateAtualizacao, setAtualizacao] = useState(null);
+  const [titulo, setTitulo] = useState('');
+  const [usuario, setUsuario] = useState('');
+
+  const [date, setDate] = useState(new Date());
 
   useEffect(() => {
     if (!route.params) return;
     setTitulo(route.params.titulo);
     setUsuario(route.params.usuario);
-    setAtualizacao(route.params.dateAtualizacao);
+    setData(route.params.data);
   }, [route]);
 
   function handleTitleChange(titulo) {
@@ -33,12 +36,14 @@ const CreateQuiz = ({route, navigation}) => {
   function handleUserChange(usuario) {
     setUsuario(usuario);
   }
-  function handleDateAtualizacaoChange(dateAtualizacao) {
-    setAtualizacao(dateAtualizacao);
-  }
 
   async function handleButtonPress() {
-    const listItem = {titulo, usuario, dateAtualizacao};
+    if (titulo.length === 0 || usuario.length === 0 || date.length === 0) {
+      Alert.alert('Preencha todos os dados solicitados');
+      return;
+    }
+
+    const listItem = {titulo, usuario, date};
     Database.saveItem(listItem, id).then((response) =>
       navigation.navigate('Home', listItem),
     );
@@ -76,13 +81,7 @@ const CreateQuiz = ({route, navigation}) => {
         clearButtonMode="always"
         value={usuario}
       />
-
-      <TextInput
-        onChangeText={handleDateAtualizacaoChange}
-        placeholder="Data"
-        clearButtonMode="always"
-        value={dateAtualizacao}
-      />
+      <DateInput date={date} onChange={setDate} />
 
       <SaveButton onPress={handleButtonPress}>
         <Icon name="save" size={24} color="gray" />

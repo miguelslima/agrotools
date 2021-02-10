@@ -20,8 +20,6 @@ const AnswerQuiz = ({route, navigation}) => {
     Database.getItems().then((items) => setItems(items));
   }, [route]);
 
-  console.log(items.length);
-
   return (
     <Container>
       {items.length === 0 ? (

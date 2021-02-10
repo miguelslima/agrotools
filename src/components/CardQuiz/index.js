@@ -10,6 +10,7 @@ import {
   TitleQuestion,
   ItemQuestion,
   ContainerFooter,
+  AnswerText,
   IconsContainer,
 } from './styles';
 
@@ -51,18 +52,21 @@ const CardQuiz = ({id, item, navigation}) => {
     <Container>
       <TitleContainer>
         <TitleQuestion>Título questionário:</TitleQuestion>
-        <ItemQuestion>{item}</ItemQuestion>
+        <ItemQuestion numberOfLines={1} ellipsizeMode="tail">
+          {item}
+        </ItemQuestion>
       </TitleContainer>
       <ContainerFooter>
         <TouchableOpacity onPress={handleAnswerPress}>
-          <Text>Responder</Text>
+          <AnswerText>Responder</AnswerText>
         </TouchableOpacity>
         <IconsContainer>
           <TouchableOpacity onPress={handleDeletePress}>
-            <Icon name="trash" size={30} color="#ff9900" />
+            <Icon name="trash" size={30} color="#550073" />
           </TouchableOpacity>
+          <Text>{'      '}</Text>
           <TouchableOpacity onPress={handleEditPress}>
-            <Icon name="eye" size={30} color="#ff9900" />
+            <Icon name="eye" size={30} color="#550073" />
           </TouchableOpacity>
         </IconsContainer>
       </ContainerFooter>
