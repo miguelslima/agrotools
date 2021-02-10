@@ -17,7 +17,7 @@ import {
 const CardQuiz = ({id, item, navigation}) => {
   async function handleEditPress() {
     const item = await Database.getItem(id);
-    navigation.navigate('AppInspect', item);
+    navigation.navigate('ViewQuiz', item);
   }
 
   async function handleAnswerPress() {

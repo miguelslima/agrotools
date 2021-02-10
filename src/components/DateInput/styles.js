@@ -5,11 +5,10 @@ export const Container = styled.View`
 `;
 
 export const DateButton = styled.TouchableOpacity`
-  padding: 0 15px;
+  padding: 0 50px;
   height: 50px;
   background: rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  margin: 0 30px;
   flex-direction: row;
   align-items: center;
   justify-content: center;

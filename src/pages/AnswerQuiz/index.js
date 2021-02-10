@@ -32,7 +32,7 @@ const AnswerQuiz = ({route, navigation}) => {
           </ButtonCreate>
         </NoQuestionnaire>
       ) : (
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           {items.map((item) => {
             return (
               <CardQuiz

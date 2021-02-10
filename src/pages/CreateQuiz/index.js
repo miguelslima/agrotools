@@ -1,5 +1,5 @@
-import React, {useState, useEffect, useCallback} from 'react';
-import {Alert, DatePickerAndroid, View} from 'react-native';
+import React, {useState, useEffect, useRef} from 'react';
+import {Alert, DatePickerAndroid, View, ScrollView, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import GetLocation from 'react-native-get-location';
 import Database from '../../database';
@@ -10,6 +10,8 @@ import {
   Container,
   Title,
   TextInput,
+  CreateQuestionButton,
+  CreateQuestionButtonText,
   SaveButton,
   SaveButtonText,
 } from './styles';
@@ -22,6 +24,10 @@ const CreateQuiz = ({route, navigation}) => {
   const [usuario, setUsuario] = useState('');
 
   const [date, setDate] = useState(new Date());
+
+  const [questionsTitles, setQuestionsTitles] = useState([]);
+  const scrollViewRef = useRef();
+  const [createdNew, setCreatedNew] = useState(false);
 
   useEffect(() => {
     if (!route.params) return;
@@ -52,18 +58,76 @@ const CreateQuiz = ({route, navigation}) => {
     });
   }
 
-  GetLocation.getCurrentPosition({
-    enableHighAccuracy: true,
-    timeout: 15000,
-  })
-    .then((location) => {
-      setLatitude(location.latitude);
-      setLongitude(location.longitude);
+  useEffect(() => {
+    GetLocation.getCurrentPosition({
+      enableHighAccuracy: true,
+      timeout: 15000,
     })
-    .catch((error) => {
-      const {code, message} = error;
-      console.log(code, message);
+      .then((location) => {
+        setLatitude(location.latitude);
+        setLongitude(location.longitude);
+      })
+      .catch((error) => {
+        const {code, message} = error;
+        console.log(code, message);
+      });
+  }, []);
+
+  const addQuestion = () => {
+    setQuestionsTitles((prev) => [...prev, '']);
+    setCreatedNew(true);
+  };
+
+  const removeQuestion = (index) => {
+    let newArr = [...questionsTitles];
+    newArr.splice(index, 1);
+    setQuestionsTitles(newArr);
+  };
+
+  const ButtonAdd = () => (
+    <CreateQuestionButton onPress={addQuestion}>
+      <Icon name="plus-square" size={25} />
+      <CreateQuestionButtonText>Criar nova pergunta</CreateQuestionButtonText>
+    </CreateQuestionButton>
+  );
+
+  const RenderTextInputs = () => {
+    return questionsTitles.map((item, index) => {
+      if (createdNew && index === questionsTitles.length - 1) {
+        setTimeout(
+          () => scrollViewRef.current.scrollToEnd({animated: true}),
+          300,
+        );
+        setCreatedNew(false);
+      }
+      return (
+        <View
+          key={String(index)}
+          style={{
+            flexDirection: 'row',
+            width: '88%',
+            alignItems: 'center',
+          }}>
+          <TextInput
+            placeholder="Titulo da pergunta"
+            value={questionsTitles[index]}
+            onChangeText={(text) => {
+              let newArray = [...questionsTitles];
+              newArray[index] = text;
+              setQuestionsTitles(newArray);
+            }}
+          />
+
+          <Icon
+            name="trash"
+            size={30}
+            style={{paddingLeft: 10}}
+            onPress={() => removeQuestion(index)}
+          />
+        </View>
+      );
     });
+  };
 
   return (
     <Container>
@@ -82,6 +146,12 @@ const CreateQuiz = ({route, navigation}) => {
         value={usuario}
       />
       <DateInput date={date} onChange={setDate} />
+
+      <ScrollView showsVerticalScrollIndicator={false} ref={scrollViewRef}>
+        {RenderTextInputs()}
+
+        <ButtonAdd />
+      </ScrollView>
 
       <SaveButton onPress={handleButtonPress}>
         <Icon name="save" size={24} color="gray" />
