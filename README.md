@@ -1,5 +1,5 @@
 <h3 align="center">
-    <img alt="Logo" title="#logo" width="400px" src="https://agrotools.com.br/wp-content/uploads/2019/06/LogoAgrotoolsNew.png">
+    <img alt="Logo" title="#logo" width="400px" src="logo.png">
     <br><br>
     <br>
 </h3>
@@ -34,22 +34,22 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias
 - [React Native](https://reactnative.dev/) <br>
   Foram utilizado aqui:
 
-  @react-native-community/async-storage
-  @react-native-community/datetimepicker
-  @react-native-community/masked-view
-  @react-navigation/bottom-tabs
-  @react-navigation/native
-  @react-navigation/stack
-  date-fns
-  react
-  react-native
-  react-native-gesture-handler
-  react-native-get-location
-  react-native-reanimated
-  react-native-safe-area-context
-  react-native-screens
-  react-native-vector-icons
-  styled-components
+  - @react-native-community/async-storage;
+  - @react-native-community/datetimepicker;
+  - @react-native-community/masked-view;
+  - @react-navigation/bottom-tabs;
+  - @react-navigation/native;
+  - @react-navigation/stack;
+  - date-fns;
+  - react;
+  - react-native;
+  - react-native-gesture-handler;
+  - react-native-get-location;
+  - react-native-reanimated;
+  - react-native-safe-area-context;
+  - react-native-screens;
+  - react-native-vector-icons;
+  - styled-components;
 
 <a id="como-usar"></a>
 
