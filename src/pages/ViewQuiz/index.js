@@ -134,7 +134,7 @@ const ViewQuiz = ({route, navigation}) => {
 
         <Text>Questionário</Text>
 
-        <Text>O que está ocorrendo na sua área?</Text>
+        <Text>Como podemos ajudar?</Text>
 
         <TextInput
           onChangeText={handleDescriptionChange}

@@ -33,7 +33,7 @@ const CreateQuiz = ({route, navigation}) => {
     if (!route.params) return;
     setTitulo(route.params.titulo);
     setUsuario(route.params.usuario);
-    setData(route.params.data);
+    setDate(route.params.date);
   }, [route]);
 
   function handleTitleChange(titulo) {

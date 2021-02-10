@@ -1,11 +1,21 @@
 import React, {useState, useEffect} from 'react';
-import {Text, TextInput, TouchableOpacity, ScrollView} from 'react-native';
+import {Text, ScrollView, View} from 'react-native';
 import GetLocation from 'react-native-get-location';
 import Icon from 'react-native-vector-icons/Feather';
 
 import Database from '../../database';
 
-import {Container} from './styles';
+import {
+  Container,
+  Title,
+  Subtitle,
+  SubtitleCenter,
+  TextInput,
+  QuestionText,
+  LocationText,
+  AnswerButton,
+  AnswerButtonText,
+} from './styles';
 
 const AnswerQuiz = ({route, navigation}) => {
   const id = route.params ? route.params.id : undefined;
@@ -14,7 +24,7 @@ const AnswerQuiz = ({route, navigation}) => {
   const [descricao, setDescricao] = useState(null);
   const [titulo, setTitulo] = useState(null);
   const [usuario, setUsuario] = useState(null);
-  const [data, setData] = useState(null);
+  const [date, setDate] = useState(null);
   const [dateQuest, setDateQuest] = useState(null);
 
   function handleTitleChange(titulo) {
@@ -26,8 +36,8 @@ const AnswerQuiz = ({route, navigation}) => {
   function handleDescriptionChange(descricao) {
     setDescricao(descricao);
   }
-  function handleDateChange(data) {
-    setData(data);
+  function handleDateChange(date) {
+    setData(date);
   }
   function handleDateQuestChange(dateQuest) {
     setDateQuest(dateQuest);
@@ -44,12 +54,11 @@ const AnswerQuiz = ({route, navigation}) => {
     setTitulo(route.params.titulo);
     setUsuario(route.params.usuario);
     setDescricao(route.params.descricao);
-    setData(route.params.data);
+    setDate(route.params.date);
     setDateQuest(route.params.dateQuest);
     setLatitude(route.params.latitude);
     setLongitude(route.params.longitude);
   }, [route]);
-
   const [items, setItems] = useState([]);
 
   useEffect(() => {
@@ -61,7 +70,7 @@ const AnswerQuiz = ({route, navigation}) => {
       usuario,
       titulo,
       descricao,
-      data,
+      date,
       dateQuest,
       latitude,
       longitude,
@@ -89,32 +98,11 @@ const AnswerQuiz = ({route, navigation}) => {
       });
   }, []);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     let {status} = await Location.requestPermissionsAsync();
-  //     if (status !== 'granted') {
-  //       setErrorMsg('Permission to access location was denied');
-  //     }
-
-  //     let location = await Location.getCurrentPositionAsync({});
-  //     let location1 = await Location.getCurrentPositionAsync({});
-  //     setLocationLat(location.coords.latitude);
-  //     setLocationLong(location.coords.longitude);
-  //   })();
-  // }, []);
-
-  // let text = 'Obtendo..';
-  // if (errorMsg) {
-  //   text = errorMsg;
-  // } else if (location) {
-  //   text = JSON.stringify(location, location1);
-  // }
-
   return (
     <Container>
-      <Text>Responder questionário</Text>
-      <ScrollView>
-        <Text>Título:</Text>
+      <Title>Responder questionário</Title>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Subtitle>Título:</Subtitle>
         <TextInput
           onChangeText={handleTitleChange}
           TextInput
@@ -124,7 +112,7 @@ const AnswerQuiz = ({route, navigation}) => {
           clearButtonMode="always"
           value={titulo}
         />
-        <Text>Usuário:</Text>
+        <Subtitle>Usuário:</Subtitle>
         <TextInput
           onChangeText={handleUserChange}
           TextInput
@@ -135,7 +123,7 @@ const AnswerQuiz = ({route, navigation}) => {
           value={usuario}
         />
 
-        <Text>Data de criação:</Text>
+        <Subtitle>Data de criação:</Subtitle>
 
         <TextInput
           onChangeText={handleDateChange}
@@ -144,12 +132,12 @@ const AnswerQuiz = ({route, navigation}) => {
           selectTextOnFocus={false}
           placeholder="Data"
           clearButtonMode="always"
-          value={data}
+          value={date}
         />
 
-        <Text>Questionário</Text>
+        <SubtitleCenter>Questionário</SubtitleCenter>
 
-        <Text>O que está ocorrendo na sua área?</Text>
+        <QuestionText>O que está ocorrendo na sua área?</QuestionText>
 
         <TextInput
           onChangeText={handleDescriptionChange}
@@ -160,7 +148,7 @@ const AnswerQuiz = ({route, navigation}) => {
           value={descricao}
         />
 
-        <Text>Data de resposta do questionário:</Text>
+        <QuestionText>Data de resposta do questionário:</QuestionText>
 
         <TextInput
           onChangeText={handleDateQuestChange}
@@ -169,18 +157,20 @@ const AnswerQuiz = ({route, navigation}) => {
           value={dateQuest}
         />
 
-        <Text>Localização atual: </Text>
-        <Text onChangeText={handleLatChange} value={latitude}>
-          Latitude: {latitude}
-        </Text>
-        <Text onChangeText={handleLongChange} value={longitude}>
-          Longitude: {longitude}
-        </Text>
+        <SubtitleCenter>Localização atual </SubtitleCenter>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <LocationText onChangeText={handleLatChange} value={latitude}>
+            Latitude: {latitude}
+          </LocationText>
+          <LocationText onChangeText={handleLongChange} value={longitude}>
+            Longitude: {longitude}
+          </LocationText>
+        </View>
 
-        <TouchableOpacity onPress={handleButtonPress}>
-          <Icon name="save" size={16} color="#888" />
-          <Text>Responder</Text>
-        </TouchableOpacity>
+        <AnswerButton onPress={handleButtonPress}>
+          <Icon name="save" size={24} color="gray" />
+          <AnswerButtonText>Responder</AnswerButtonText>
+        </AnswerButton>
       </ScrollView>
     </Container>
   );
