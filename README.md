@@ -67,11 +67,11 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias
   $ git@github.com:miguelslima/agrotools.git
 
   # Instale as dependências
-  $ npm install
+  $ npm install ou yarn
 
   # Inicie a aplicação mobile
-  $ cd loreal.digital.aplicativo
-  $ npm start
+  $ cd agrotools
+  $ npm start ou yarn android
 ```
 
 ## :memo: License
